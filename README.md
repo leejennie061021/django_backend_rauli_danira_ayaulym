@@ -1,0 +1,2 @@
+# django_backend_rauli_danira_ayaulym
+backend project
