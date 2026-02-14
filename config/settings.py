@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'media_indexer',
+    'core',
+    'media',
+    'accounts'
 ]
 
 STATIC_URL = '/static/'
