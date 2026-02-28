@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Media Indexer</title>
+    <link rel="stylesheet" href="{% static 'indexer/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">🧬 Science Media</div>
+        <div class="nav-links">
+            <a href="{% url 'index' %}">Главная</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_podcast' %}" class="btn-add">+ Добавить подкаст</a>
+                <span class="user-greeting">Сәлем, {{ user.username }}!</span>
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-logout">Выйти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-login">Войти</a>
+                <a href="{% url 'register' %}" class="btn-register">Регистрация</a>
+            {% endif %}
+        </div>
+    </nav>
+    
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{% static 'indexer/script.js' %}"></script>
+</body>
+</html>

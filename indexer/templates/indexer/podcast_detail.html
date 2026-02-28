@@ -1,0 +1,31 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<div class="detail-container fade-in">
+    <div class="detail-layout">
+        <div class="detail-video-section">
+            <img src="{{ podcast.get_thumbnail_url }}" alt="Обложка" class="detail-main-img">
+            <h1 class="detail-title">{{ podcast.title }}</h1>
+            <div class="detail-meta">
+                <p class="detail-author">Автор: <strong>{{ podcast.author }}</strong></p>
+                <span class="category-tag">{{ podcast.category.name }}</span>
+            </div>
+        </div>
+        
+        <div class="detail-sidebar">
+            <a href="{{ podcast.url }}" target="_blank" class="btn-watch-youtube">
+                ▶ Смотреть на YouTube
+            </a>
+            
+            <div class="detail-description-box">
+                <h3>Описание</h3>
+                <p>{{ podcast.description|default:"Описание пока не добавлено." }}</p>
+            </div>
+            
+            <div class="detail-uploader-info">
+                <p>Добавил(а): {{ podcast.uploader.username }}</p>
+                <p class="date">{{ podcast.created_at|date:"d M Y" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

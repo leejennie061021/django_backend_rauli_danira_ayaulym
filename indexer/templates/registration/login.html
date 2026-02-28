@@ -1,0 +1,12 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<div class="auth-container fade-in">
+    <h2 class="auth-title">Кіру / Вход</h2>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">Войти</button>
+    </form>
+    <p class="auth-links">Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
+</div>
+{% endblock %}

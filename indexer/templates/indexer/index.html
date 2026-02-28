@@ -1,0 +1,23 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<h1 class="page-title">Ғылым туралы бейнеконтент пен подкасттар</h1>
+<div class="video-grid">
+    {% for podcast in podcasts %}
+    <div class="video-card">
+        <a href="{% url 'podcast_detail' podcast.id %}">
+            <div class="thumbnail-wrapper">
+                <img src="{{ podcast.get_thumbnail_url }}" alt="Обложка" class="thumbnail">
+            </div>
+        </a>
+        <div class="video-info">
+            <h3 class="video-title">{{ podcast.title }}</h3>
+            <p class="video-author">{{ podcast.author }}</p>
+            <div class="video-meta">
+                <span class="category-tag">{{ podcast.category.name }}</span>
+                <span class="uploader-name">Добавил(а): {{ podcast.uploader.username }}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
