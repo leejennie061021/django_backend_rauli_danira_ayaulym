@@ -1,0 +1,12 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<div class="form-container fade-in" style="text-align: center;">
+    <h2>Удалить подкаст?</h2>
+    <p style="margin-bottom: 20px;">Вы уверены, что хотите безвозвратно удалить <strong>"{{ podcast.title }}"</strong>?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn-delete" style="width: 100%; padding: 12px; margin-bottom: 10px;">Да, удалить навсегда</button>
+        <a href="{% url 'podcast_detail' podcast.id %}" class="btn-cancel" style="display:block; text-decoration:none; color:#666;">Отмена</a>
+    </form>
+</div>
+{% endblock %}

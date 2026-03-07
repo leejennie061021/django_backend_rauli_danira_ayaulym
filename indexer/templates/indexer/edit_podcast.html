@@ -1,0 +1,12 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<div class="form-container fade-in">
+    <h2>Редактировать подкаст</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-submit">💾 Сохранить изменения</button>
+        <a href="{% url 'podcast_detail' podcast.id %}" class="btn-cancel" style="display:block; text-align:center; margin-top:10px; text-decoration:none; color:#666;">Отмена</a>
+    </form>
+</div>
+{% endblock %}
