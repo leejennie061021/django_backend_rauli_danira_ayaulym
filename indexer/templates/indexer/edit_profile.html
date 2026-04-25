@@ -1,0 +1,18 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<div class="form-container fade-in" style="max-width: 600px;">
+    <h2>Настройки профиля</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <h3 style="margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Базовая информация</h3>
+        {{ u_form.as_p }}
+        
+        <h3 style="margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Дополнительно</h3>
+        {{ p_form.as_p }}
+        
+        <button type="submit" class="btn-submit" style="margin-top: 20px;">💾 Сохранить изменения</button>
+        <a href="{% url 'profile' %}" style="display:block; text-align:center; margin-top:15px; text-decoration:none; color: var(--accent); font-weight: bold;">Отмена</a>
+    </form>
+</div>
+{% endblock %}

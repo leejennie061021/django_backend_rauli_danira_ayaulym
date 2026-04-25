@@ -1,0 +1,41 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<div class="detail-container fade-in">
+    <h1 class="page-title">💬 Форум Science Media</h1>
+    <p style="margin-bottom: 25px; color: #666;">Общайтесь, задавайте вопросы и делитесь знаниями!</p>
+
+    {% if user.is_authenticated %}
+        <details style="margin-bottom: 40px;">
+            <summary class="main-add-btn" style="cursor: pointer; list-style: none; display: inline-flex;">
+                <span class="btn-icon">+</span> Создать новую тему
+            </summary>
+            
+            <div class="detail-box fade-in" style="margin-top: 15px; border: 2px solid var(--accent);">
+                <h3 style="margin-bottom: 15px;">Напишите свой вопрос:</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn-submit" style="margin-top: 10px;">Опубликовать тему</button>
+                </form>
+            </div>
+        </details>
+    {% else %}
+        <p class="login-prompt" style="margin-bottom: 30px;"><a href="{% url 'login' %}">Войдите</a>, чтобы создать тему.</p>
+    {% endif %}
+
+    <div class="topics-list">
+        {% for topic in topics %}
+            <div class="detail-box" style="margin-bottom: 15px; transition: transform 0.2s;">
+                <a href="{% url 'forum_topic' topic.id %}" style="font-size: 1.2rem; font-weight: bold; color: var(--accent); text-decoration: none; display: block; margin-bottom: 8px;">
+                    📌 {{ topic.title }}
+                </a>
+                <p style="color: #64748b; font-size: 0.9rem;">
+                    Автор: <strong>{{ topic.author.username }}</strong> | Создано: {{ topic.created_at|date:"d M Y, H:i" }} | Ответов: {{ topic.replies.count }}
+                </p>
+            </div>
+        {% empty %}
+            <p class="empty-text">Пока нет ни одной темы. Будьте первым!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

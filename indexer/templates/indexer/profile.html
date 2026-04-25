@@ -1,0 +1,52 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<div class="profile-container fade-in">
+    
+    <a href="{% url 'index' %}" class="btn-back" style="margin-bottom: 20px; display: inline-block;">
+        <span style="margin-right: 8px;">←</span> Басты бетке / На главную
+    </a>
+
+    <div class="profile-header">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+            <h1 style="margin: 0;">Жеке кабинет / Профиль: {{ user.username }}</h1>
+            
+            <a href="{% url 'edit_profile' %}" class="btn-edit" style="flex: none; width: auto; padding: 10px 20px; margin: 0;">
+                ⚙️ Өңдеу / Редактировать
+            </a>
+        </div>
+        
+        <div style="color: var(--text-color); line-height: 1.8; font-size: 1.1rem;">
+            <p><strong>📧 Email:</strong> {{ user.email|default:"Не указан" }}</p>
+            <p><strong>📱 Телефон:</strong> {{ user.profile.phone_number|default:"Не указан" }}</p>
+            <p><strong>🌍 Страна:</strong> {{ user.profile.country|default:"Не указана" }}</p>
+            <p><strong>👤 Пол:</strong> {{ user.profile.get_gender_display|default:"Не указан" }}</p>
+            <p><strong>🎂 Дата рождения:</strong> {{ user.profile.birth_date|date:"d M Y"|default:"Не указана" }}</p>
+        </div>
+    </div>
+
+    <p style="margin-bottom: 20px; color: #888; font-size: 1.1rem;">
+        Здесь хранятся ваши загрузки и любимые подкасты.
+    </p>
+
+    <h2 class="section-title">❤️ Мое избранное ({{ favorite_podcasts.count }})</h2>
+    <div class="video-grid" style="margin-bottom: 40px;">
+        {% for podcast in favorite_podcasts %}
+            {% include 'indexer/includes/podcast_card.html' with podcast=podcast %}
+        {% empty %}
+            <p class="empty-text">Вы пока не добавили ничего в избранное.</p>
+        {% endfor %}
+    </div>
+
+    <hr style="border: 1px solid #eee; margin-bottom: 30px;">
+
+    <h2 class="section-title">📂 Мои загрузки ({{ user_podcasts.count }})</h2>
+    <div class="video-grid">
+        {% for podcast in user_podcasts %}
+            {% include 'indexer/includes/podcast_card.html' with podcast=podcast %}
+        {% empty %}
+            <p class="empty-text">Вы еще не загрузили ни одного подкаста.</p>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock %}

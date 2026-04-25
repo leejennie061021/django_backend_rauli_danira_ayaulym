@@ -1,0 +1,43 @@
+{% extends 'indexer/base.html' %}
+{% block content %}
+<div class="detail-container fade-in" style="max-width: 800px;">
+    
+    <a href="{% url 'forum_list' %}" class="btn-back" style="margin-bottom: 20px; display: inline-block;">← Назад к форуму</a>
+
+    <div class="detail-box" style="margin-bottom: 30px; border-left: 5px solid var(--accent);">
+        <h1 style="color: var(--text-color); margin-bottom: 10px;">{{ topic.title }}</h1>
+        <div style="font-size: 0.9rem; color: #888; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+            Автор: <strong>{{ topic.author.username }}</strong> | {{ topic.created_at|date:"d M Y, H:i" }}
+        </div>
+        <p style="font-size: 1.1rem; line-height: 1.6; color: var(--text-color);">{{ topic.content }}</p>
+    </div>
+
+    <h3>Ответы ({{ replies.count }})</h3>
+    <div class="comments-list" style="margin-top: 15px;">
+        {% for reply in replies %}
+            <div class="comment-card">
+                <div class="comment-header">
+                    <strong>{{ reply.author.username }}</strong>
+                    <span class="date">{{ reply.created_at|date:"d M Y, H:i" }}</span>
+                </div>
+                <p class="comment-text">{{ reply.content }}</p>
+            </div>
+        {% empty %}
+            <p class="empty-text">Ответов пока нет.</p>
+        {% endfor %}
+    </div>
+
+    <div style="margin-top: 30px;">
+        {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn-submit">Ответить</button>
+            </form>
+        {% else %}
+            <p class="login-prompt"><a href="{% url 'login' %}">Войдите</a>, чтобы оставить ответ.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'indexer/base.html' %}
+
+{% block content %}
+<div class="auth-container fade-in">
+    <div style="text-align: left; margin-bottom: 25px;">
+        <a href="{% url 'index' %}" class="btn-back">
+            <span style="margin-right: 8px;">←</span> Назад на главную
+        </a>
+    </div>
+
+    <h2 class="auth-title">Добавить новый подкаст</h2>
+    
+    <form method="POST" class="auth-form">
+        {% csrf_token %}
+        
+        <div class="form-body">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="btn-submit" style="margin-top: 25px; width: 100%;">
+            Сохранить подкаст
+        </button>
+    </form>
+</div>
+{% endblock %}
